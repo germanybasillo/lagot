@@ -5,7 +5,7 @@
         {{-- Header and search bar --}}
         <div class="m-header">
             <nav>
-                <a href="#"><i class="fas fa-inbox"></i> <span class="messenger-headTitle">MESSAGES</span> </a>
+                <a href="#"><i class="fas fa-inbox"></i><span class="messenger-headTitle">MESSAGES</span> </a>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#"><i class="fas fa-cog settings-btn"></i></a>
@@ -63,7 +63,7 @@
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
-                    <a href="/"><i class="fas fa-home"></i></a>
+                    <a href="/dashboard"><i class="fas fa-home"></i></a>
                     <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
                 </nav>
             </nav>
@@ -78,7 +78,19 @@
         {{-- Messaging area --}}
         <div class="m-body messages-container app-scroll">
             <div class="messages">
-                <p class="message-hint center-el"><span>Please select a chat to start messaging</span></p>
+                <p class="message-hint center-el">
+                    @if (auth()->user()->user_type === 'tenant')
+                    @foreach($rentalOwners as $owner)
+                    <span> If you have a suggestion, important notice or important business please contact the Rental_Owner.Then Also
+                        Discussing about the billing.Please search <span style="color:blue">{{ $owner->name }}</span> to start messaging...</span>
+                    @endforeach
+                    @elseif (auth()->user()->user_type === 'rental_owner')
+                    <span>Please search to start messaging in the Tenant</span>
+                    @foreach($user as $tenant)
+                    <span style="color:blue;display:flex;margin:10px;">{{ $tenant->name }}</span>
+                    @endforeach
+                    @endif
+                </p>
             </div>
             {{-- Typing indicator --}}
             <div class="typing-indicator">
@@ -101,7 +113,7 @@
     <div class="messenger-infoView app-scroll">
         {{-- nav actions --}}
         <nav>
-            <p>User Details</p>
+            <p>Users Details</p>
             <a href="#"><i class="fas fa-times"></i></a>
         </nav>
         {!! view('Chatify::layouts.info')->render() !!}

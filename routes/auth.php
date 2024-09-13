@@ -9,6 +9,11 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\BedController;
+use App\Http\Controllers\BedSelected;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\RoomSelected;
+use App\Http\Controllers\TenantprofileController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -56,4 +61,23 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+    
+    Route::resource('/tenantprofiles', TenantprofileController::class);
+    Route::post('/tenantprofile/store', [TenantprofileController::class, 'store'])->name('tenantprofile.store');
+    Route::put('/tenantprofiles/{id}', [TenantProfileController::class, 'update'])->name('tenantprofiles.update');
+
+    Route::resource('/rooms', RoomController::class);
+    Route::post('/room/store', [RoomController::class, 'store'])->name('room.store');
+
+    Route::resource('/beds', BedController::class);
+    Route::post('/bed/store', [BedController::class, 'store'])->name('bed.store');
+
+    Route::resource('/selecteds', RoomSelected::class);
+    Route::post('/selected/store', [RoomSelected::class, 'store'])->name('selected.store');
+    Route::put('/selecteds/{id}', [RoomSelected::class, 'update'])->name('selecteds.update');
+
+    Route::resource('/selectbeds', BedSelected::class);
+    Route::post('/selectbed/store', [BedSelected::class, 'store'])->name('selectbed.store');
+    Route::put('/selectbeds/{id}', [BedSelected::class, 'update'])->name('selectbeds.update');
+
 });
