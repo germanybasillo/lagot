@@ -86,7 +86,7 @@
                     @endforeach
                     @elseif (auth()->user()->user_type === 'rental_owner')
                     <span>Please search to start messaging in the Tenant</span>
-                    @foreach($user as $tenant)
+                    @foreach($tenant as $tenant)
                     <span style="color:blue;display:flex;margin:10px;">{{ $tenant->name }}</span>
                     @endforeach
                     @endif

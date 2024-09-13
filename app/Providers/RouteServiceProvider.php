@@ -7,7 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\User;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
@@ -24,6 +24,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $rentalOwners = User::where('user_type', 'rental_owner')->get();
+        view()->share('rentalOwners', $rentalOwners);
+
+        $tenant = User::where('user_type', 'tenant')->get();
+        view()->share('tenant', $tenant);
+
         $this->configureRateLimiting();
 
         $this->routes(function () {

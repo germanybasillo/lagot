@@ -63,7 +63,7 @@
             </a>
           </li>
           @elseif (auth()->user()->user_type === 'rental_owner')
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="/bedassigns" class="nav-link">
               <i class="nav-icon fa fa-bed"></i>
               <p>
@@ -73,7 +73,7 @@
                 Bed Assignment  ({{ $bedassigns }})
               </p>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a href="/selecteds" class="nav-link">
               <i class="nav-icon fa fa-home"></i>
